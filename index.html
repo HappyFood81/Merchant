@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HappyFood | Merchant</title>
+    <link rel="shortcut icon" href="images/logo/original_logo.svg">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div class="container" id="home">
+        <header class="header">
+            <div class="header-wrapper">
+                <div class="log-in" id="navUser" onmouseover="user(true)" onmouseout="user(false)"><svg xmlns="http://www.w3.org/2000/svg" height="36px" viewbox="0 0 24 24" width="36px" class="black-grey-svg" fill="#c5c5c5"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM7.07 18.28c.43-.9 3.05-1.78 4.93-1.78s4.51.88 4.93 1.78C15.57 19.36 13.86 20 12 20s-3.57-.64-4.93-1.72zm11.29-1.45c-1.43-1.74-4.9-2.33-6.36-2.33s-4.93.59-6.36 2.33C4.62 15.49 4 13.82 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 1.82-.62 3.49-1.64 4.83zM12 6c-1.94 0-3.5 1.56-3.5 3.5S10.06 13 12 13s3.5-1.56 3.5-3.5S13.94 6 12 6zm0 5c-.83 0-1.5-.67-1.5-1.5S11.17 8 12 8s1.5.67 1.5 1.5S12.83 11 12 11z"/></svg></div>
+
+                <div class="logo"><svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewbox="0 0 264.583 264.583" xmlns:v="https://vecta.io/nano"><g fill="#ffac00"><path d="M263.052 128.254a129.272 110.415 0 0 1-64.636 95.622 129.272 110.415 0 0 1-129.272 0 129.272 110.415 0 
+                0 1-64.636-95.622H133.78z"/><g transform="scale(-1 1)"><circle cx="-73.258" cy="56.707" r="36.184"/><circle cx="-205.744" cy="70.451" r="31.521"/></g><path d="M86.72 230.981h94.271v8.769H86.72z"/></g></svg></div>
+                
+
+                <div class="theme" id="navTheme" onclick="navThemeFunc()"></div>
+            </div>
+
+           
+        </header>
+
+        <div class="user-box" id="userBox">
+            <div>Log out</div>
+            <div>Ask Questions</div>
+        </div>
+
+        <nav class="nav">
+            <div class="nav-box" id="navList" onclick="nav('navList')"></div>
+            <div class="nav-box" id="navFood" onclick="nav('navFood')"></div>
+            <div class="nav-box" id="navRider" onclick="nav('navRider')"></div>
+        </nav>
+
+        <div class="section-container">
+            <div class="section-slide1">
+                <main>
+                    <div class="main-first">
+                        <div id="profit" class="main-header">₱0</div>
+                        <div class="main-first-stc">Overall income this week</div>
+                    </div>
+                    <div class="main-second">
+                        <div class="main-second1 main-one" id="NEW">
+                            <div id="newOrders" class="main-sub">0</div>
+                            <div class="main-second-stc">New</div>
+                        </div>
+    
+                        <div class="main-second1 main-two" id="PREPARING">
+                            <div id="preparing" class="main-sub">0</div>
+                            <div class="main-second-stc">Preparing</div>
+                        </div>
+    
+                        <div class="main-second1 main-three" id="FINISHED">
+                            <div id="finished" class="main-sub">0</div>
+                            <div class="main-second-stc">Finished</div>
+                        </div>
+                    </div>
+                </main>
+    
+            
+                <div class="section0">
+                    <div class="section-header" id="sectionNewOrders">New Orders</div>
+                    
+                    <div class="section0-wrapper" id="sectionWrapper1"></div>
+                </div>
+            </div>
+
+            <div class="section-slide2">
+                <div class="section-header">Preparing Orders</div>
+                <div id="sectionWrapper2">
+                    <section>
+                        <div class="section-box preparing">
+                            <div class="section-box-stc">#3 Order</div>
+                            <div class="section-box-btn">See Order</div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <div class="section-slide3">
+                <div class="section-header">Finished Orders</div>
+                <div id="sectionWrapper3">
+                    <section>
+                        <div class="section-box finished">
+                            <div class="section-box-stc">#2 Order</div>
+                            <div class="section-box-btn">See Order</div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+
+        <footer></footer>
+
+        
+        <div class="order-showcase" onclick="seeNewOrderCls()"></div>
+
+
+
+
+
+        <div class="order-container">
+                <div class="order-header" id="orderHeader"><b>Order</b> <div id="orderFoodNum">#1930</div><span id="orderTime">12:41PM</span></div>
+
+                <div class="order-wrapper">
+                    <div class="order-main" id="orderMain"></div>
+                </div>
+
+                <div class="order-btn">
+                    <button>We'll Prepare</button>
+                </div>
+        </div>
+
+
+        <div class="intro-loading" id="introLoading">
+            <div class="intro-wrapper">
+                <div class="intro-image" id="introLogo"><img src="images/logo/main_logo.svg"/></div>
+                <div class="intro-logo-name" id="introLogoName">HappyFood</div>
+                <div class="intro-progress-bar" id="progressBar"></div>
+                <div class="intro-footer"><a href="privacy-policy.html">By using our service, you are agreeing to the Terms and Privacy Policy of HappyFood.</a></div>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="screen-indc">We don't support landscape display, try to rotate your device for a better experience.</div>
+</body>
+<script src="js/index.js"></script>
+</html>
