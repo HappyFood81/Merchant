@@ -1,0 +1,94 @@
+.intro-loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3;
+
+    height: 100%;
+    width: 100%;
+
+    transition: 0.3s ease;
+    visibility: hidden;
+}
+
+
+
+.intro-wrapper {
+    height: 100%;
+    width: 100%;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    background: #f8f8f8;
+}
+
+.intro-image {
+    height: 21%;
+    width: auto;
+    transition: 1.4s ease;
+}
+
+.intro-image img {
+    height: 100%;
+    width: 100%;
+}
+
+.intro-logo-name {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-size: calc(1.1em + 2vw);
+    color: #ffac00;
+
+    transition: 1s ease;
+
+    padding: calc(0.2em + 2vw);
+}
+
+.intro-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    height: 10%;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    font-size: calc(0.3em + 2vw);
+    text-align: center;
+}
+
+.intro-footer a {
+    height: auto;
+    width: 80%;
+    
+    text-decoration: none;
+    color: #bbbbbb;
+
+    display: flex;
+    justify-content: center;
+}
+
+.intro-progress-bar {
+    border: 3px solid #dddddd;
+    border-radius: 1000vh;
+
+    height: calc(0.5em + 2vw);
+    width: 70%;
+
+    position: absolute;
+    bottom: 10%;
+
+    background: linear-gradient(90deg, #000,#000) left / 0 100% no-repeat;
+
+    transition: 0.3s ease;
+}

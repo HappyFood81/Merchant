@@ -1,0 +1,233 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Open+Sans:wght@400;500;600;700;800&family=Poppins:wght@700&display=swap');
+
+*, *::before, *::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    transition: all 0.3s ease;
+    scroll-behavior: smooth;
+}
+
+.container, header, main, section, nav, div {
+    transition: 0.3s ease;
+}
+
+button {
+    outline: none;
+    border: 0;
+    appearance: none;
+}
+
+
+.loader-ball-13 {
+    display: inline-block;
+    position: relative;
+    width: 70px;
+    height: 70px;
+}
+.loader-ball-13 div {
+    animation: loader-ball-13-spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    transform-origin: 32px 32px;
+}
+.loader-ball-13 div:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #bbb;
+    margin: -3px 0 0 -3px;
+}
+.loader-ball-13 div:nth-child(1) {
+    animation-delay: -0.036s;
+}
+.loader-ball-13 div:nth-child(1):after {
+    top: 50px;
+    left: 50px;
+}
+.loader-ball-13 div:nth-child(2) {
+    animation-delay: -0.072s;
+}
+.loader-ball-13 div:nth-child(2):after {
+    top: 54px;
+    left: 45px;
+}
+.loader-ball-13 div:nth-child(3) {
+    animation-delay: -0.108s;
+}
+.loader-ball-13 div:nth-child(3):after {
+    top: 57px;
+    left: 39px;
+}
+.loader-ball-13 div:nth-child(4) {
+    animation-delay: -0.144s;
+}
+.loader-ball-13 div:nth-child(4):after {
+    top: 58px;
+    left: 32px;
+}
+.loader-ball-13 div:nth-child(5) {
+    animation-delay: -0.18s;
+}
+.loader-ball-13 div:nth-child(5):after {
+    top: 57px;
+    left: 25px;
+}
+.loader-ball-13 div:nth-child(6) {
+    animation-delay: -0.216s;
+}
+.loader-ball-13 div:nth-child(6):after {
+    top: 54px;
+    left: 19px;
+}
+.loader-ball-13 div:nth-child(7) {
+    animation-delay: -0.252s;
+}
+.loader-ball-13 div:nth-child(7):after {
+    top: 50px;
+    left: 14px;
+}
+.loader-ball-13 div:nth-child(8) {
+    animation-delay: -0.288s;
+}
+.loader-ball-13 div:nth-child(8):after {
+    top: 45px;
+    left: 10px;
+}
+@keyframes loader-ball-13-spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+
+
+.error-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3;
+
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+
+    background: rgba(0, 0, 0, 0.350);
+
+    padding: calc(1.5em + 2vw);
+
+    opacity: 0;
+    visibility: hidden;
+}
+
+.error {
+    position: fixed;
+    bottom: -100%;
+    left: 0;
+    z-index: 3;
+
+    height: auto;
+    width: 100%;
+
+    background: #f8f8f8;
+    border-radius: 10vw 10vw 0 0;
+
+    padding-top: calc(0.4em + 2vw);
+    
+    opacity: 0;
+    visibility: hidden;
+}
+
+
+.error-header {
+    padding: calc(0.3em + 2vw);
+
+    font-family: "Montserrat", sans-serif;
+    font-weight: 800;
+    font-size: calc(1.4em + 2vw);
+    color: #1e1e1e;
+}
+
+.error-stc {
+    padding: 0 calc(0.8em + 2vw);
+    font-family: "Noto Sans", sans-serif;
+    font-weight: 500;
+    font-size: calc(0.5em + 2vw);
+}
+
+.error-btn button{
+    margin: calc(2em + 2vw) calc(1em + 2vw);
+    padding: calc(0.3em + 2vw) calc(0.5em + 2vw);
+
+    font-family: "Montserrat", sans-serif;
+    font-weight: 00;
+    font-size: calc(0.5em + 2vw);
+    color: #f8f8f8;
+
+    background: #0e5fca;
+    border-radius: 2vw;
+
+    height: auto;
+    width: auto;
+}
+
+.error-btn button:active {
+    background: #09428b;
+}
+
+
+.bottom-right {
+    position: fixed;
+    bottom: 5vw;
+    right: 7vw;
+}
+
+
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+  
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+  
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+  
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+  }
+
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-30 { font-size: 30px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+
+
+.material-icons.orange-yellow {  color: #aaaaaa; }
