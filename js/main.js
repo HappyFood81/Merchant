@@ -872,20 +872,20 @@ async function dataMerchant() {
 
 
 
-dataMerchant().then(res => {
-    const status = res[0].status;
+// dataMerchant().then(res => {
+//     const status = res[0].status;
 
-    const container = document.querySelector(".container");
-    const logBtn = document.querySelector(".login-btn");
+//     const container = document.querySelector(".container");
+//     const logBtn = document.querySelector(".login-btn");
     
-    if (status === "offline") {
-        container.style.visibility = "hidden";
-        logBtn.style.visibility = "visible";
-    } else if (status === "online") {
-        container.style.visibility = "visible";
-        logBtn.style.visibility = "hidden";
-    }
-}).catch(err => { error() });
+//     if (status === "offline") {
+//         container.style.visibility = "hidden";
+//         logBtn.style.visibility = "visible";
+//     } else if (status === "online") {
+//         container.style.visibility = "visible";
+//         logBtn.style.visibility = "hidden";
+//     }
+// }).catch(err => { error() });
 
 
 function signOut() {
