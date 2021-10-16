@@ -845,7 +845,7 @@ function newToPreparing(a) {
 
 setInterval(() => {
     window.location.reload();
-}, 30_000)
+}, 60_000)
 
 
 
@@ -855,7 +855,7 @@ setInterval(() => {
     newOrders.innerHTML = newOrderLength;
     prepOrders.innerHTML = prepOrderLength;
     finsOrders.innerHTML = finsOrderLength;
-}, 100);
+}, 1000);
 
 
 
