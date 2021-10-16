@@ -52,6 +52,9 @@ form {
     border-radius: 2vw;
     background: #fcfcfc;
     
+    outline: none;
+    appearance: none;
+    
     text-align: center;
     transition: 0.2s ease;
 }
