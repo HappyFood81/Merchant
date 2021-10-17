@@ -1,5 +1,5 @@
-let screenWidth = screen.width;
-let screenHeight = screen.height;
+const screenWidth = screen.width;
+const screenHeight = screen.height;
 
 function logo() {
     window.location.reload();
@@ -12,20 +12,30 @@ let container = document.getElementById("home");
 let navUser = document.getElementById("navUser");
 let navTheme = document.getElementById("navTheme");
 
-if (screenWidth > 599 && screenHeight > 700) {
-    navUser.innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' height='36px' viewBox='0 0 24 24' width='36px' fill='#aaaaaa'><path d='M0 0h24v24H0z' fill='none'/><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/></svg>";
-    navTheme.innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' id='navThemeSvg' height='36px' viewBox='0 0 24 24' width='36px' fill='#aaaaaa'><path d='M0 0h24v24H0z' fill='none'/><path d='M20 15.31L23.31 12 20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69zM12 18V6c3.31 0 6 2.69 6 6s-2.69 6-6 6z'/></svg>";
-    navList.innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' id='listOrders' class='nav-svg' enable-background='new 0 0 20 20' height='36px' viewBox='0 0 20 20' width='36px' fill='#383838'><rect fill='none' height='20' width='20'/><path d='M4.5,5h11C16.33,5,17,5.6,17,6.34v1.57c0,0.74-0.67,1.34-1.5,1.34h-11C3.67,9.25,3,8.65,3,7.91V6.34C3,5.6,3.67,5,4.5,5z M4.5,15h11c0.83,0,1.5-0.6,1.5-1.34v-1.57c0-0.74-0.67-1.34-1.5-1.34h-11c-0.83,0-1.5,0.6-1.5,1.34v1.57C3,14.4,3.67,15,4.5,15z'/></svg>"
-    navFood.innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' id='prepareOrders' class='nav-svg' enable-background='new 0 0 20 20' height='36px' viewBox='0 0 20 20' width='36px' fill='#383838'><g><rect fill='none' height='20' width='20'/></g><g><g><path d='M5,12.78C4.64,13.11,4.35,13.53,4.18,14H16c0-2.21-1.79-4-4-4c-1.62,0-3,0.96-3.63,2.34C7.96,12.13,7.5,12,7,12 c-0.17,0-0.34,0.02-0.5,0.04V7H8c0.65,0,1.2-0.42,1.41-1H16V5H9.41C9.2,4.42,8.65,4,8,4H4v0.5h1v0.75H4v0.5h1V6.5H4V7h1V12.78z M6,12.18c-0.18,0.06-0.34,0.14-0.5,0.24V7H6V12.18z M8,6.5H6.5V5.75H8V6.5z M8,4.5v0.75H6.5V4.5H8z M5.5,4.5H6v0.75H5.5V4.5z M5.5,5.75H6V6.5H5.5V5.75z'/><polygon points='3,15 4,16 16,16 17,15'/></g></g></svg>"
-    navRider.innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' id='riderOrders' class='nav-svg' enable-background='new 0 0 20 20' height='36px' viewBox='0 0 20 20' width='36px' fill='#383838'><g><rect fill='none' height='20' width='20'/></g><g><g><path d='M15,7.5C15,6.67,14.33,6,13.5,6H12v1h1.5C13.78,7,14,7.22,14,7.5v1.29L10.79,12H9V8H6c-1.66,0-3,1.34-3,3v2h2 c0,1.1,0.9,2,2,2s2-0.9,2-2h2.21L15,9.21V7.5z M7,14c-0.55,0-1-0.45-1-1h2C8,13.55,7.55,14,7,14z'/><rect height='1' width='4' x='5' y='6'/><path d='M15,11c-1.1,0-2,0.9-2,2c0,1.1,0.9,2,2,2s2-0.9,2-2C17,11.9,16.1,11,15,11z M15,14c-0.55,0-1-0.45-1-1c0-0.55,0.45-1,1-1 s1,0.45,1,1C16,13.55,15.55,14,15,14z'/></g></g></svg>"
-} else if (screenWidth < 599 && screenHeight < 830 ) {
-    navUser.innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px' fill='#aaaaaa'><path d='M0 0h24v24H0z' fill='none'/><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/></svg>";
-    navTheme.innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' id='navThemeSvg' height='24px' viewBox='0 0 24 24' width='24px' fill='#aaaaaa'><path d='M0 0h24v24H0z' fill='none'/><path d='M20 15.31L23.31 12 20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69zM12 18V6c3.31 0 6 2.69 6 6s-2.69 6-6 6z'/></svg>";
-    navList.innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' id='listOrders' class='nav-svg' enable-background='new 0 0 24 24' height='24px' viewBox='0 0 24 24' width='24px' fill='#383838'><rect fill='none' height='24' width='24'/><path d='M3,17v-2c0-1.1,0.9-2,2-2h14c1.1,0,2,0.9,2,2v2c0,1.1-0.9,2-2,2H5C3.9,19,3,18.1,3,17z M3,7v2c0,1.1,0.9,2,2,2h14 c1.1,0,2-0.9,2-2V7c0-1.1-0.9-2-2-2H5C3.9,5,3,5.9,3,7z'/></svg>"
-    navFood.innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' id='prepareOrders' class='nav-svg' enable-background='new 0 0 24 24' height='24px' viewBox='0 0 24 24' width='24px' fill='#383838'><g><rect fill='none' height='24' width='24'/></g><g><path d='M2,19h20l-2,2H4L2,19z M5,6h1v1H5V6z M5,4h1v1H5V4z M9,4v1H7V4H9z M9,7H7V6h2V7z M6,15.23c-0.36,0.11-0.69,0.28-1,0.47V8h1 V15.23z M4,16.52C3.62,16.96,3.32,17.45,3.16,18h16.82c0.01-0.16,0.03-0.33,0.03-0.5c0-3.04-2.46-5.5-5.5-5.5 c-2.29,0-4.25,1.4-5.08,3.4C8.84,15.15,8.19,15,7.5,15c-0.17,0-0.33,0.02-0.5,0.04V8h2c1.03,0.06,1.9-0.96,2-2h10V5H11 c-0.1-1.05-0.97-1.97-2-2H3v1h1v1H3v1h1v1H3v1h1V16.52z'/></g></svg>"
-    navRider.innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' id='riderOrders' class='nav-svg' enable-background='new 0 0 24 24' height='24px' viewBox='0 0 24 24' width='24px' fill='#383838'><g><rect fill='none' height='24' width='24'/></g><g><g><path d='M19,7c0-1.1-0.9-2-2-2h-3v2h3v2.65L13.52,14H10V9H6c-2.21,0-4,1.79-4,4v3h2c0,1.66,1.34,3,3,3s3-1.34,3-3h4.48L19,10.35V7 z M7,17c-0.55,0-1-0.45-1-1h2C8,16.55,7.55,17,7,17z'/><rect height='2' width='5' x='5' y='6'/><path d='M19,13c-1.66,0-3,1.34-3,3s1.34,3,3,3s3-1.34,3-3S20.66,13,19,13z M19,17c-0.55,0-1-0.45-1-1s0.45-1,1-1s1,0.45,1,1 S19.55,17,19,17z'/></g></g></svg>"
+
+const navList = document.getElementById("navList");
+const navFood = document.getElementById("navFood");
+const navRider = document.getElementById("navRider");
+
+function icons() {
+    if (screenWidth > 599 && screenHeight > 700) {
+        navUser.innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' height='36px' viewBox='0 0 24 24' width='36px' fill='#aaaaaa'><path d='M0 0h24v24H0z' fill='none'/><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/></svg>";
+        navTheme.innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' id='navThemeSvg' height='36px' viewBox='0 0 24 24' width='36px' fill='#aaaaaa'><path d='M0 0h24v24H0z' fill='none'/><path d='M20 15.31L23.31 12 20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69zM12 18V6c3.31 0 6 2.69 6 6s-2.69 6-6 6z'/></svg>";
+        navList.innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' id='listOrders' class='nav-svg' enable-background='new 0 0 20 20' height='36px' viewBox='0 0 20 20' width='36px' fill='#383838'><rect fill='none' height='20' width='20'/><path d='M4.5,5h11C16.33,5,17,5.6,17,6.34v1.57c0,0.74-0.67,1.34-1.5,1.34h-11C3.67,9.25,3,8.65,3,7.91V6.34C3,5.6,3.67,5,4.5,5z M4.5,15h11c0.83,0,1.5-0.6,1.5-1.34v-1.57c0-0.74-0.67-1.34-1.5-1.34h-11c-0.83,0-1.5,0.6-1.5,1.34v1.57C3,14.4,3.67,15,4.5,15z'/></svg>"
+        navFood.innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' id='prepareOrders' class='nav-svg' enable-background='new 0 0 20 20' height='36px' viewBox='0 0 20 20' width='36px' fill='#383838'><g><rect fill='none' height='20' width='20'/></g><g><g><path d='M5,12.78C4.64,13.11,4.35,13.53,4.18,14H16c0-2.21-1.79-4-4-4c-1.62,0-3,0.96-3.63,2.34C7.96,12.13,7.5,12,7,12 c-0.17,0-0.34,0.02-0.5,0.04V7H8c0.65,0,1.2-0.42,1.41-1H16V5H9.41C9.2,4.42,8.65,4,8,4H4v0.5h1v0.75H4v0.5h1V6.5H4V7h1V12.78z M6,12.18c-0.18,0.06-0.34,0.14-0.5,0.24V7H6V12.18z M8,6.5H6.5V5.75H8V6.5z M8,4.5v0.75H6.5V4.5H8z M5.5,4.5H6v0.75H5.5V4.5z M5.5,5.75H6V6.5H5.5V5.75z'/><polygon points='3,15 4,16 16,16 17,15'/></g></g></svg>"
+        navRider.innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' id='riderOrders' class='nav-svg' enable-background='new 0 0 20 20' height='36px' viewBox='0 0 20 20' width='36px' fill='#383838'><g><rect fill='none' height='20' width='20'/></g><g><g><path d='M15,7.5C15,6.67,14.33,6,13.5,6H12v1h1.5C13.78,7,14,7.22,14,7.5v1.29L10.79,12H9V8H6c-1.66,0-3,1.34-3,3v2h2 c0,1.1,0.9,2,2,2s2-0.9,2-2h2.21L15,9.21V7.5z M7,14c-0.55,0-1-0.45-1-1h2C8,13.55,7.55,14,7,14z'/><rect height='1' width='4' x='5' y='6'/><path d='M15,11c-1.1,0-2,0.9-2,2c0,1.1,0.9,2,2,2s2-0.9,2-2C17,11.9,16.1,11,15,11z M15,14c-0.55,0-1-0.45-1-1c0-0.55,0.45-1,1-1 s1,0.45,1,1C16,13.55,15.55,14,15,14z'/></g></g></svg>"
+    } else if (screenWidth < 599 && screenHeight < 830 ) {
+        alert("working")
+        navUser.innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px' fill='#aaaaaa'><path d='M0 0h24v24H0z' fill='none'/><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/></svg>";
+        navTheme.innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' id='navThemeSvg' height='24px' viewBox='0 0 24 24' width='24px' fill='#aaaaaa'><path d='M0 0h24v24H0z' fill='none'/><path d='M20 15.31L23.31 12 20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69zM12 18V6c3.31 0 6 2.69 6 6s-2.69 6-6 6z'/></svg>";
+        navList.innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' id='listOrders' class='nav-svg' enable-background='new 0 0 24 24' height='24px' viewBox='0 0 24 24' width='24px' fill='#383838'><rect fill='none' height='24' width='24'/><path d='M3,17v-2c0-1.1,0.9-2,2-2h14c1.1,0,2,0.9,2,2v2c0,1.1-0.9,2-2,2H5C3.9,19,3,18.1,3,17z M3,7v2c0,1.1,0.9,2,2,2h14 c1.1,0,2-0.9,2-2V7c0-1.1-0.9-2-2-2H5C3.9,5,3,5.9,3,7z'/></svg>"
+        navFood.innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' id='prepareOrders' class='nav-svg' enable-background='new 0 0 24 24' height='24px' viewBox='0 0 24 24' width='24px' fill='#383838'><g><rect fill='none' height='24' width='24'/></g><g><path d='M2,19h20l-2,2H4L2,19z M5,6h1v1H5V6z M5,4h1v1H5V4z M9,4v1H7V4H9z M9,7H7V6h2V7z M6,15.23c-0.36,0.11-0.69,0.28-1,0.47V8h1 V15.23z M4,16.52C3.62,16.96,3.32,17.45,3.16,18h16.82c0.01-0.16,0.03-0.33,0.03-0.5c0-3.04-2.46-5.5-5.5-5.5 c-2.29,0-4.25,1.4-5.08,3.4C8.84,15.15,8.19,15,7.5,15c-0.17,0-0.33,0.02-0.5,0.04V8h2c1.03,0.06,1.9-0.96,2-2h10V5H11 c-0.1-1.05-0.97-1.97-2-2H3v1h1v1H3v1h1v1H3v1h1V16.52z'/></g></svg>"
+        navRider.innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' id='riderOrders' class='nav-svg' enable-background='new 0 0 24 24' height='24px' viewBox='0 0 24 24' width='24px' fill='#383838'><g><rect fill='none' height='24' width='24'/></g><g><g><path d='M19,7c0-1.1-0.9-2-2-2h-3v2h3v2.65L13.52,14H10V9H6c-2.21,0-4,1.79-4,4v3h2c0,1.66,1.34,3,3,3s3-1.34,3-3h4.48L19,10.35V7 z M7,17c-0.55,0-1-0.45-1-1h2C8,16.55,7.55,17,7,17z'/><rect height='2' width='5' x='5' y='6'/><path d='M19,13c-1.66,0-3,1.34-3,3s1.34,3,3,3s3-1.34,3-3S20.66,13,19,13z M19,17c-0.55,0-1-0.45-1-1s0.45-1,1-1s1,0.45,1,1 S19.55,17,19,17z'/></g></g></svg>"
+    }
+    return "Working"
 }
 
+icons();
 
 let darkMode = false;
 let navThemeBoolean = false;
@@ -184,8 +194,7 @@ function nav(val) {
         
         navChecker();
     }
-} nav("navList")
-
+} 
 function navChecker() {
     if (firstPage === true && darkMode === false) {
         listOrders.style.fill = "#cacaca";
@@ -952,6 +961,17 @@ document.getElementById("login").addEventListener("click", e => {
         }, 700);
     }
 });
+
+
+
+
+
+
+
+
+// Fix the button (preparing buttons)
+// Delete all function (triggers every 12AM);
+
 
 
 
