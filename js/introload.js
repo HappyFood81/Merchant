@@ -24,18 +24,12 @@ function introLoad() {
                     introLogo.style.transform = "translateY(100vh)";
                     introLogoName.style.transform = "translateY(120vh)";
                 }, 300)
-                setTimeout(() => {
-                    introLoading.style.opacity = "0";               
+                setTimeout(() => {                  
                     setTimeout(() => {
-                        introLoading.style.visibility = "hidden";
+                        window.location.reload();                        
                     });
                 }, 1500);
             }, 500);
         }
     } introLoadLoop();
-}
-
-if (!localStorage.getItem("load")) {
-    localStorage.setItem("load", "loaded");
-    introLoad();
 }
