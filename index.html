@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/introload.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <uses-permission android:name="android.permission.INTERNET" />
 </head>
 <body>
     
@@ -117,14 +118,34 @@
             <div class="error-btn"><button onclick="refresh()">Refresh</button></div>
         </div>
 
+        
 
-        <div class="intro-loading" id="introLoading">
-            <div class="intro-wrapper">
-                <div class="intro-image" id="introLogo"><img src="images/logo/main_logo.svg"/></div>
-                <div class="intro-logo-name" id="introLogoName">HappyFood</div>
-                <div class="intro-progress-bar" id="progressBar"></div>
-                <div class="intro-footer"><a href="privacy-policy.html">By using our service, you are agreeing to the Terms and Privacy Policy of HappyFood.</a></div>
+
+
+        <div class="login-container flex-column">
+            <div class="header2 flex-column">
+                <div class="logo2">
+                    <img src="images/logo/main_logo.svg" alt="HappyFood logo">
+                </div>
             </div>
+    
+            <div class="main2 flex-column">
+                <input type="password" autocomplete="off" placeholder="Input your password" id="qjflfksdfw">
+            </div>
+    
+            <div id="login">Log in</div>
+    
+            
+            <div class="intro-loading" id="introLoading">
+                <div class="intro-wrapper">
+                    <div class="intro-image" id="introLogo"><img src="images/logo/main_logo.svg"/></div>
+                    <div class="intro-logo-name" id="introLogoName">HappyFood</div>
+                    <div class="intro-progress-bar" id="progressBar"></div>
+                    <div class="intro-footer"><a href="privacy-policy.html">By using our service, you are agreeing to the Terms and Privacy Policy of HappyFood.</a></div>
+                </div>
+            </div>
+    
+            <span class="bottom-right material-icons md-30 orange-yellow">contact_support</span>
         </div>
     </div>
 
