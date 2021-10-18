@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/introload.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <uses-permission android:name="android.permission.INTERNET" />
 </head>
 <body>
     
@@ -116,6 +115,16 @@
             <div class="error-header">Check your internet connection.</div>
             <div class="error-stc">It seems your connection is slow.</div>
             <div class="error-btn"><button onclick="refresh()">Refresh</button></div>
+        </div>
+
+
+        <div class="intro-loading" id="introLoading">
+            <div class="intro-wrapper">
+                <div class="intro-image" id="introLogo"><img src="images/logo/main_logo.svg"/></div>
+                <div class="intro-logo-name" id="introLogoName">HappyFood</div>
+                <div class="intro-progress-bar" id="progressBar"></div>
+                <div class="intro-footer"><a href="privacy-policy.html">By using our service, you are agreeing to the Terms and Privacy Policy of HappyFood.</a></div>
+            </div>
         </div>
     </div>
 
