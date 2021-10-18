@@ -25,11 +25,17 @@ function introLoad() {
                     introLogoName.style.transform = "translateY(120vh)";
                 }, 300)
                 setTimeout(() => {
+                    introLoading.style.opacity = "0";               
                     setTimeout(() => {
-                        window.location.reload();
+                        introLoading.style.visibility = "hidden";
                     });
                 }, 1500);
             }, 500);
         }
     } introLoadLoop();
+}
+
+if (!localStorage.getItem("load")) {
+    localStorage.setItem("load", "loaded");
+    introLoad();
 }
