@@ -31,8 +31,12 @@ function icons() {
         navFood.innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' id='prepareOrders' class='nav-svg' enable-background='new 0 0 24 24' height='24px' viewBox='0 0 24 24' width='24px' fill='#383838'><g><rect fill='none' height='24' width='24'/></g><g><path d='M2,19h20l-2,2H4L2,19z M5,6h1v1H5V6z M5,4h1v1H5V4z M9,4v1H7V4H9z M9,7H7V6h2V7z M6,15.23c-0.36,0.11-0.69,0.28-1,0.47V8h1 V15.23z M4,16.52C3.62,16.96,3.32,17.45,3.16,18h16.82c0.01-0.16,0.03-0.33,0.03-0.5c0-3.04-2.46-5.5-5.5-5.5 c-2.29,0-4.25,1.4-5.08,3.4C8.84,15.15,8.19,15,7.5,15c-0.17,0-0.33,0.02-0.5,0.04V8h2c1.03,0.06,1.9-0.96,2-2h10V5H11 c-0.1-1.05-0.97-1.97-2-2H3v1h1v1H3v1h1v1H3v1h1V16.52z'/></g></svg>"
         navRider.innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' id='riderOrders' class='nav-svg' enable-background='new 0 0 24 24' height='24px' viewBox='0 0 24 24' width='24px' fill='#383838'><g><rect fill='none' height='24' width='24'/></g><g><g><path d='M19,7c0-1.1-0.9-2-2-2h-3v2h3v2.65L13.52,14H10V9H6c-2.21,0-4,1.79-4,4v3h2c0,1.66,1.34,3,3,3s3-1.34,3-3h4.48L19,10.35V7 z M7,17c-0.55,0-1-0.45-1-1h2C8,16.55,7.55,17,7,17z'/><rect height='2' width='5' x='5' y='6'/><path d='M19,13c-1.66,0-3,1.34-3,3s1.34,3,3,3s3-1.34,3-3S20.66,13,19,13z M19,17c-0.55,0-1-0.45-1-1s0.45-1,1-1s1,0.45,1,1 S19.55,17,19,17z'/></g></g></svg>"
     }
-} icons();
+}
 
+icons();
+
+let darkMode = false;
+let navThemeBoolean = false;
 
 
 let firstPage = true;
@@ -46,11 +50,24 @@ let riderOrders = document.getElementById("riderOrders");
 let mainSecondArr = ["one", "two", "three"];
 let navThemeSvg = document.getElementById("navThemeSvg");
 
-const header = document.querySelector("header");
-headerHeight = window.getComputedStyle(header, null).getPropertyValue("height");
+let headerHeight;
 
+const merchantTheme = async () => {
+    const res = await fetch(merchantURL);
+    const data = await res.json();
 
-let darkMode = false;
+    const header = document.querySelector("header");
+    headerHeight = window.getComputedStyle(header, null).getPropertyValue("height");
+
+    return data[0].theme;
+}
+
+merchantTheme().then(res => {
+    if (res === "true") {
+        navThemeFunc();
+    }
+}).catch(err => { return error()})
+
 
 function user(val) {
     if (val) {
@@ -58,18 +75,10 @@ function user(val) {
     } else userBox.style.top = "-100%";
 }
 
-let navBoolean;
 
-if (!localStorage.getItem("theme")) {
-    localStorage.setItem("theme", "false");
-    navBoolean = false;
-} else {
-    navBoolean = localStorage.getItem("theme") === "false" ? false : true;
-    navThemeFunc();
-}
 
 function navThemeFunc() {
-    if (!navBoolean) {
+    if (!navThemeBoolean) {
         darkMode = true;
         navChecker();
         navThemeSvg.style.transform = "rotate(180deg)";
@@ -85,8 +94,20 @@ function navThemeFunc() {
         document.querySelectorAll(".section-box").forEach(e => e.className += " white-shadow");
         document.querySelector(".user-box").className += " white-bg";
         document.querySelectorAll(".user-box-section").forEach(e => e.className = "user-box-section border-top-green");
-        localStorage.setItem("theme", "true");
-        navBoolean = true;
+        navThemeBoolean = true;
+        
+        fetch(`${merchantURL}/616a9c1233620b435ac55da3`, {
+            method: "PATCH",
+            body: JSON.stringify({
+                theme: "true"
+            }),
+            headers: {
+                "Content-Type": "application/json; charset=UTF-8"
+            }
+        }).catch(err => {
+            navThemeBoolean = false;
+            return error();
+        });
     } else {
         darkMode = false;
         navChecker();
@@ -107,10 +128,22 @@ function navThemeFunc() {
         document.querySelectorAll(".finished").forEach(e => e.className = "section-box finished");
         document.querySelector(".user-box").className = "user-box black-bg";
         document.querySelectorAll(".user-box-section").forEach(e => e.className = "user-box-section border-top-black");
-        localStorage.setItem("theme", "false");
-        navBoolean = false;
+        navThemeBoolean = false;
+
+        fetch(`${merchantURL}/616a9c1233620b435ac55da3`, {
+            method: "PATCH",
+            body: JSON.stringify({
+                theme: "false"
+            }),
+            headers: {
+                "Content-Type": "application/json; charset=UTF-8"
+            }
+        }).catch(err => {
+            navThemeBoolean = true;
+            return error();
+        });
     }
-} navThemeFunc();
+}
 
 
 
@@ -258,12 +291,12 @@ let errorContainer = document.getElementById("errorContainer");
 let errorMain = document.getElementById("errorMain");
 
 
-// async function dataCustomer() {
-//     const res = await fetch(customerURL);
-//     const data = await res.json();
+async function dataCustomer() {
+    const res = await fetch(customerURL);
+    const data = await res.json();
 
-//     return data;
-// }
+    return data;
+}
 
 
 
@@ -284,434 +317,427 @@ let newOrderLength = 0;
 let prepOrderLength = 0;
 let finsOrderLength = 0;
 
-// async function dataMerchant() {
-//     const res = await fetch(merchantURL);
-//     const data = await res.json();
+dataCustomer().then(d => {
+    let profit = document.getElementById("profit");
 
-//     return data;
-// }
-
-// dataCustomer().then(d => {
-//     let profit = document.getElementById("profit");
-
-//     dataMerchant().then(d => {
-//         const merchant = d[0];
-//         const merchantProfit = merchant.profit;
-//         profit.innerHTML = `₱${merchantProfit}`;
-//     });
+    dataMerchant().then(d => {
+        const merchant = d[0];
+        const merchantProfit = merchant.profit;
+        profit.innerHTML = `₱${merchantProfit}`;
+    });
     
-//     if (d.length > 0) {
-//         newOrderGen(d);
-//     } else {
-//         return dataCustomer();
-//     }
-// }).then(() => {
-//     if (darkMode) {
-//         for (i = 0; i < allNewOrder.length; i++) {
+    if (d.length > 0) {
+        newOrderGen(d);
+    } else {
+        return dataCustomer();
+    }
+}).then(() => {
+    if (darkMode) {
+        for (i = 0; i < allNewOrder.length; i++) {
     
-//             let foodNumber = allNewOrder[i].foodNumber;
-//             wrapper1.innerHTML += `
-//             <section id="section${i}">
-//             <div class="section-box new white-shadow">
-//                 <div class="section-box-stc">#${foodNumber} Order</div>
-//                 <div class="section-box-btn" onclick="seeNewOrder(${i})">See Order</div>
-//             </div>
-//             </section>
-//             `
-//         }
+            let foodNumber = allNewOrder[i].foodNumber;
+            wrapper1.innerHTML += `
+            <section id="section${i}">
+            <div class="section-box new white-shadow">
+                <div class="section-box-stc">#${foodNumber} Order</div>
+                <div class="section-box-btn" onclick="seeNewOrder(${i})">See Order</div>
+            </div>
+            </section>
+            `
+        }
 
 
-//         for (i = 0; i < allPrepOrder.length; i++) {
+        for (i = 0; i < allPrepOrder.length; i++) {
 
-//             let foodNumber = allPrepOrder[i].foodNumber;
-//             wrapper2.innerHTML += `
-//             <section id="section${i}">
-//             <div class="section-box preparing white-shadow">
-//                 <div class="section-box-stc">#${foodNumber} Order</div>
-//                 <div class="section-box-btn" onclick="seePrepOrder(${i})">See Order</div>
-//             </div>
-//             </section>
-//             `
-//         }
-//     } else if (!darkMode) {
-//         for (i = 0; i < allNewOrder.length; i++) {
+            let foodNumber = allPrepOrder[i].foodNumber;
+            wrapper2.innerHTML += `
+            <section id="section${i}">
+            <div class="section-box preparing white-shadow">
+                <div class="section-box-stc">#${foodNumber} Order</div>
+                <div class="section-box-btn" onclick="seePrepOrder(${i})">See Order</div>
+            </div>
+            </section>
+            `
+        }
+    } else if (!darkMode) {
+        for (i = 0; i < allNewOrder.length; i++) {
             
-//             let foodNumber = allNewOrder[i].foodNumber;
-//             wrapper1.innerHTML += `
-//             <section id="section${i}">
-//                 <div class="section-box new">
-//                     <div class="section-box-stc">#${foodNumber} Order</div>
-//                     <div class="section-box-btn" onclick="seeNewOrder(${i})">See Order</div>
-//                 </div>
-//             </section>
-//             `;
-//         }
+            let foodNumber = allNewOrder[i].foodNumber;
+            wrapper1.innerHTML += `
+            <section id="section${i}">
+                <div class="section-box new">
+                    <div class="section-box-stc">#${foodNumber} Order</div>
+                    <div class="section-box-btn" onclick="seeNewOrder(${i})">See Order</div>
+                </div>
+            </section>
+            `;
+        }
 
-//         for (i = 0; i < allPrepOrder.length; i++) {
+        for (i = 0; i < allPrepOrder.length; i++) {
             
-//             let foodNumber = allPrepOrder[i].foodNumber;
-//             wrapper2.innerHTML += `
-//             <section id="section${i}">
-//                 <div class="section-box preparing">
-//                     <div class="section-box-stc">#${foodNumber} Order</div>
-//                     <div class="section-box-btn" onclick="seePrepOrder(${i})">See Order</div>
-//                 </div>
-//             </section>
-//             `;
-//         }
-//     }
-// }).catch(err => {
-//     return error();
-// });
+            let foodNumber = allPrepOrder[i].foodNumber;
+            wrapper2.innerHTML += `
+            <section id="section${i}">
+                <div class="section-box preparing">
+                    <div class="section-box-stc">#${foodNumber} Order</div>
+                    <div class="section-box-btn" onclick="seePrepOrder(${i})">See Order</div>
+                </div>
+            </section>
+            `;
+        }
+    }
+}).catch(err => {
+    return error();
+});
 
 
 
 
-// let foodNumGrp = [];
+let foodNumGrp = [];
 
-// function newOrderGen(val) {
-//     const d = val;
+function newOrderGen(val) {
+    const d = val;
 
-//     wrapper1.innerHTML = "";
-//     wrapper2.innerHTML = "";
-//     wrapper3.innerHTML = "";
+    wrapper1.innerHTML = "";
+    wrapper2.innerHTML = "";
+    wrapper3.innerHTML = "";
     
-//     d.forEach(d => {
-//         const id = d._id;
-//         const order = d.orders;
+    d.forEach(d => {
+        const id = d._id;
+        const order = d.orders;
         
-//         const name = d.name;
-//         const phone = d.phone;
-//         const address = d.house;
-//         const resto = d.resto;
-//         const subTotal = d.subTotal;
-//         const email = d.email;
-//         const time = d.time.substr(0, 8);
-//         const delFee = d.delFee;
+        const name = d.name;
+        const phone = d.phone;
+        const address = d.house;
+        const resto = d.resto;
+        const subTotal = d.subTotal;
+        const email = d.email;
+        const time = d.time.substr(0, 8);
+        const delFee = d.delFee;
 
-//         const newOrder = d.newOrder;
-//         const preparing = d.preparing;
-//         const finished = d.finished;
+        const newOrder = d.newOrder;
+        const preparing = d.preparing;
+        const finished = d.finished;
 
         
 
-//         if (newOrder === "true" && preparing === "false" && finished === "false") {
-//             newOrderLength += 1;
+        if (newOrder === "true" && preparing === "false" && finished === "false") {
+            newOrderLength += 1;
 
-//             const t = new Date();
-//             const hour = t.getHours();
-//             const minutes = t.getMinutes();
-//             let foodNumber = Number(hour) + Number(minutes);
+            const t = new Date();
+            const hour = t.getHours();
+            const minutes = t.getMinutes();
+            let foodNumber = Number(hour) + Number(minutes);
     
-//             function foodNumGen() {
-//                 if (foodNumGrp.length === 0) {
-//                     foodNumGrp.push(foodNumber);
-//                 } else if (foodNumGrp.length > 0) {
-//                     foodNumGrp.map(num => {
-//                         if (foodNumber === num) {
-//                             foodNumber = Number(foodNumber) + 1;
-//                             return foodNumGen();
-//                         } else {
-//                             foodNumGrp.push(foodNumber);
-//                         }
-//                     });
-//                 }
-//             } foodNumGen();
+            function foodNumGen() {
+                if (foodNumGrp.length === 0) {
+                    foodNumGrp.push(foodNumber);
+                } else if (foodNumGrp.length > 0) {
+                    foodNumGrp.map(num => {
+                        if (foodNumber === num) {
+                            foodNumber = Number(foodNumber) + 1;
+                            return foodNumGen();
+                        } else {
+                            foodNumGrp.push(foodNumber);
+                        }
+                    });
+                }
+            } foodNumGen();
 
-//             let newInfo = {
-//                 name: name,
-//                 phone: phone,
-//                 address: address,
-//                 resto: resto,
-//                 delFee: delFee,
-//                 email: email,
-//                 time: time,
-//                 total: subTotal,
-//                 id: id,
-//                 newOrder: newOrder,
-//                 preparing: preparing,
-//                 finished: finished,
-//                 orders: [],
-//                 foodNumber: foodNumber,
-//             }
-
-
-//             for (i = 0; i < order.length; i++) {
-//                 let brackets = {};
-
-//                 let foodName = order[i][0];
-//                 let numOfOrder = order[i][1];
-//                 let foodAddOns = order[i][3];
-//                 let foodFlavor = order[i][4];
-//                 let foodTotalPrice = order[i][5];
+            let newInfo = {
+                name: name,
+                phone: phone,
+                address: address,
+                resto: resto,
+                delFee: delFee,
+                email: email,
+                time: time,
+                total: subTotal,
+                id: id,
+                newOrder: newOrder,
+                preparing: preparing,
+                finished: finished,
+                orders: [],
+                foodNumber: foodNumber,
+            }
 
 
-//                 brackets.name = foodName;
-//                 brackets.num = numOfOrder;
-//                 brackets.add = foodAddOns;
-//                 brackets.flavor = foodFlavor;
-//                 brackets.total = foodTotalPrice;
+            for (i = 0; i < order.length; i++) {
+                let brackets = {};
 
-//                 newInfo.orders.push(brackets);
-//             }
+                let foodName = order[i][0];
+                let numOfOrder = order[i][1];
+                let foodAddOns = order[i][3];
+                let foodFlavor = order[i][4];
+                let foodTotalPrice = order[i][5];
+
+
+                brackets.name = foodName;
+                brackets.num = numOfOrder;
+                brackets.add = foodAddOns;
+                brackets.flavor = foodFlavor;
+                brackets.total = foodTotalPrice;
+
+                newInfo.orders.push(brackets);
+            }
             
-//             allNewOrder.push(newInfo);
+            allNewOrder.push(newInfo);
 
-//         } else if (preparing === "true" && newOrder === "false" && finished === "false") {
-//             prepOrderLength += 1;
+        } else if (preparing === "true" && newOrder === "false" && finished === "false") {
+            prepOrderLength += 1;
 
-//             let newInfo = {
-//                 name: name,
-//                 phone: phone,
-//                 address: address,
-//                 resto: resto,
-//                 delFee: delFee,
-//                 email: email,
-//                 time: time,
-//                 total: subTotal,
-//                 id: id,
-//                 newOrder: newOrder,
-//                 preparing: preparing,
-//                 finished: finished,
-//                 orders: d.orders,
-//                 foodNumber: d.foodNumber,
-//             }
+            let newInfo = {
+                name: name,
+                phone: phone,
+                address: address,
+                resto: resto,
+                delFee: delFee,
+                email: email,
+                time: time,
+                total: subTotal,
+                id: id,
+                newOrder: newOrder,
+                preparing: preparing,
+                finished: finished,
+                orders: d.orders,
+                foodNumber: d.foodNumber,
+            }
 
-//             let foodNumber = Number(newInfo.foodNumber);
+            let foodNumber = Number(newInfo.foodNumber);
 
-//             foodNumGrp.push(foodNumber);
+            foodNumGrp.push(foodNumber);
 
-//             allPrepOrder.push(newInfo);
-//         } else if (newOrder === "false" && preparing === "false" && finished === "true") {
-//             finsOrderLength += 1;
-//         }
-//     });
-// }
-
-
-
-// function error() {
-//     errorContainer.style.visibility = "visible";
-//     errorMain.style.visibility = "visible";
-
-//     errorContainer.style.opacity = "1";
-//     errorMain.style.opacity = "1";
-
-//     errorMain.style.bottom = "0";
-// }
-
-
-// function refresh() {
-//     errorMain.style.bottom = "-100%";
-//     setTimeout(() => {
-//         errorContainer.style.visibility = "hidden";
-//         errorMain.style.visibility = "hidden";
-//         errorContainer.style.opacity = "0";
-//         errorMain.style.opacity = "0";
-//         setTimeout(() => {
-//             window.location.reload();
-//         }, 500);
-//     }, 500);
-// }
+            allPrepOrder.push(newInfo);
+        } else if (newOrder === "false" && preparing === "false" && finished === "true") {
+            finsOrderLength += 1;
+        }
+    });
+}
 
 
 
-// let orderShowcase = document.querySelector(".order-showcase");
-// let orderContainer = document.querySelector(".order-container");
-// let orderMain = document.getElementById("orderMain");
-// let orderTime = document.getElementById("orderTime");
-// let orderFoodNum = document.getElementById("orderFoodNum");
+function error() {
+    errorContainer.style.visibility = "visible";
+    errorMain.style.visibility = "visible";
+
+    errorContainer.style.opacity = "1";
+    errorMain.style.opacity = "1";
+
+    errorMain.style.bottom = "0";
+}
+
+
+function refresh() {
+    errorMain.style.bottom = "-100%";
+    setTimeout(() => {
+        errorContainer.style.visibility = "hidden";
+        errorMain.style.visibility = "hidden";
+        errorContainer.style.opacity = "0";
+        errorMain.style.opacity = "0";
+        setTimeout(() => {
+            window.location.reload();
+        }, 500);
+    }, 500);
+}
+
+
+
+let orderShowcase = document.querySelector(".order-showcase");
+let orderContainer = document.querySelector(".order-container");
+let orderMain = document.getElementById("orderMain");
+let orderTime = document.getElementById("orderTime");
+let orderFoodNum = document.getElementById("orderFoodNum");
 
 
 
 
 
-// function seeNewOrder(i) {
-//     orderShowcase.style.visibility = "visible";
-//     orderContainer.style.visibility = "visible";
+function seeNewOrder(i) {
+    orderShowcase.style.visibility = "visible";
+    orderContainer.style.visibility = "visible";
 
-//     setTimeout(() => {
-//         orderShowcase.style.opacity = "1";
-//         orderContainer.style.opacity = "1";
-//     }, 20);
+    setTimeout(() => {
+        orderShowcase.style.opacity = "1";
+        orderContainer.style.opacity = "1";
+    }, 20);
 
-//     const orderInfo = allNewOrder[i];
-//     orderTime.innerHTML = `${orderInfo.time}`;
-//     orderFoodNum.innerHTML = `#${orderInfo.foodNumber}`;
+    const orderInfo = allNewOrder[i];
+    orderTime.innerHTML = `${orderInfo.time}`;
+    orderFoodNum.innerHTML = `#${orderInfo.foodNumber}`;
 
-//     orderMain.innerHTML = "";
+    orderMain.innerHTML = "";
 
-//     const a = i;
+    const a = i;
     
-//     for (i = 0; i < orderInfo.orders.length; i++) {
-//         const orders = orderInfo.orders[i];
-//         const b = i;
+    for (i = 0; i < orderInfo.orders.length; i++) {
+        const orders = orderInfo.orders[i];
+        const b = i;
         
-//         if (orders.add.length > 3 && orders.flavor.length > 3) {
-//             orderMain.innerHTML += `
-//             <div class="order-box" id="${a}${b}">
-//                 <div class="order-box-des1">
-//                     <div class="order-name">${orders.name}</div>
-//                     <div class="order-number">${orders.num}×</div>
-//                     <div class="order-price">₱${orders.total}</div>
-//                 </div>
+        if (orders.add.length > 3 && orders.flavor.length > 3) {
+            orderMain.innerHTML += `
+            <div class="order-box" id="${a}${b}">
+                <div class="order-box-des1">
+                    <div class="order-name">${orders.name}</div>
+                    <div class="order-number">${orders.num}×</div>
+                    <div class="order-price">₱${orders.total}</div>
+                </div>
 
-//                 <div class="order-box-flavor">Flavor: ${orders.flavor}</div>
+                <div class="order-box-flavor">Flavor: ${orders.flavor}</div>
 
-//                 <div class="order-box-des2">
-//                     <div class="order-addons">${orders.add}</div>
-//                     <div class="order-box-des2-btn"><button onclick="newOrderRemove(${a}, ${b})">Remove</button></div>
-//                 </div>
-//             </div>
-//             `;
-//         } else if (orders.add === "---" && orders.flavor === "---") {
-//             orderMain.innerHTML += `
-//             <div class="order-box" id="${a}${b}">
-//                 <div class="order-box-des1">
-//                     <div class="order-name">${orders.name}</div>
-//                     <div class="order-number">${orders.num}×</div>
-//                     <div class="order-price">₱${orders.total}</div>
-//                 </div>
+                <div class="order-box-des2">
+                    <div class="order-addons">${orders.add}</div>
+                    <div class="order-box-des2-btn"><button onclick="newOrderRemove(${a}, ${b})">Remove</button></div>
+                </div>
+            </div>
+            `;
+        } else if (orders.add === "---" && orders.flavor === "---") {
+            orderMain.innerHTML += `
+            <div class="order-box" id="${a}${b}">
+                <div class="order-box-des1">
+                    <div class="order-name">${orders.name}</div>
+                    <div class="order-number">${orders.num}×</div>
+                    <div class="order-price">₱${orders.total}</div>
+                </div>
 
-//                 <div class="order-box-des2">
-//                     <div class="order-addons"></div>
-//                     <div class="order-box-des2-btn"><button onclick="newOrderRemove(${a}, ${b})">Remove</button></div>
-//                 </div>
-//             </div>
-//             `;
-//         } else if (orders.add.length > 3 && orders.flavor === "---") {
-//             orderMain.innerHTML += `
-//             <div class="order-box" id="${a}${b}">
-//                 <div class="order-box-des1">
-//                     <div class="order-name">${orders.name}</div>
-//                     <div class="order-number">${orders.num}×</div>
-//                     <div class="order-price">₱${orders.total}</div>
-//                 </div>
+                <div class="order-box-des2">
+                    <div class="order-addons"></div>
+                    <div class="order-box-des2-btn"><button onclick="newOrderRemove(${a}, ${b})">Remove</button></div>
+                </div>
+            </div>
+            `;
+        } else if (orders.add.length > 3 && orders.flavor === "---") {
+            orderMain.innerHTML += `
+            <div class="order-box" id="${a}${b}">
+                <div class="order-box-des1">
+                    <div class="order-name">${orders.name}</div>
+                    <div class="order-number">${orders.num}×</div>
+                    <div class="order-price">₱${orders.total}</div>
+                </div>
 
-//                 <div class="order-box-des2">
-//                     <div class="order-addons">${orders.add}</div>
-//                     <div class="order-box-des2-btn"><button onclick="newOrderRemove(${a}, ${b})">Remove</button></div>
-//                 </div>
-//             </div>
-//             `;
-//         } else if (orders.add === "---" && orders.flavor.length > 3) {
-//             orderMain.innerHTML += `
-//             <div class="order-box" id="${a}${b}">
-//                 <div class="order-box-des1">
-//                     <div class="order-name">${orders.name}</div>
-//                     <div class="order-number">${orders.num}×</div>
-//                     <div class="order-price">₱${orders.total}</div>
-//                 </div>
+                <div class="order-box-des2">
+                    <div class="order-addons">${orders.add}</div>
+                    <div class="order-box-des2-btn"><button onclick="newOrderRemove(${a}, ${b})">Remove</button></div>
+                </div>
+            </div>
+            `;
+        } else if (orders.add === "---" && orders.flavor.length > 3) {
+            orderMain.innerHTML += `
+            <div class="order-box" id="${a}${b}">
+                <div class="order-box-des1">
+                    <div class="order-name">${orders.name}</div>
+                    <div class="order-number">${orders.num}×</div>
+                    <div class="order-price">₱${orders.total}</div>
+                </div>
 
-//                 <div class="order-box-flavor">Flavor: ${orders.flavor}</div>
+                <div class="order-box-flavor">Flavor: ${orders.flavor}</div>
 
-//                 <div class="order-box-des2">
-//                     <div class="order-box-des2-btn"><button onclick="newOrderRemove(${a}, ${b})">Remove</button></div>
-//                 </div>
-//             </div>
-//             `;
-//         }
-//     }
-//     orderMain.innerHTML += `
-//         <div class="order-box" style="opacity:0;"></div>
-//     `;
+                <div class="order-box-des2">
+                    <div class="order-box-des2-btn"><button onclick="newOrderRemove(${a}, ${b})">Remove</button></div>
+                </div>
+            </div>
+            `;
+        }
+    }
+    orderMain.innerHTML += `
+        <div class="order-box" style="opacity:0;"></div>
+    `;
 
-//     document.getElementById("orderBtn").innerHTML = `<button onclick="newToPreparing(${a})">We'll Prepare</button>`
-// }
-
-
+    document.getElementById("orderBtn").innerHTML = `<button onclick="newToPreparing(${a})">We'll Prepare</button>`
+}
 
 
 
 
-// function seePrepOrder(i) {
-//     orderShowcase.style.visibility = "visible";
-//     orderContainer.style.visibility = "visible";
 
-//     setTimeout(() => {
-//         orderShowcase.style.opacity = "1";
-//         orderContainer.style.opacity = "1";
-//     }, 20);
 
-//     const orderInfo = allPrepOrder[i];
-//     orderTime.innerHTML = `${orderInfo.time}`;
-//     orderFoodNum.innerHTML = `#${orderInfo.foodNumber}`;
+function seePrepOrder(i) {
+    orderShowcase.style.visibility = "visible";
+    orderContainer.style.visibility = "visible";
 
-//     orderMain.innerHTML = "";
+    setTimeout(() => {
+        orderShowcase.style.opacity = "1";
+        orderContainer.style.opacity = "1";
+    }, 20);
 
-//     const a = i;
+    const orderInfo = allPrepOrder[i];
+    orderTime.innerHTML = `${orderInfo.time}`;
+    orderFoodNum.innerHTML = `#${orderInfo.foodNumber}`;
+
+    orderMain.innerHTML = "";
+
+    const a = i;
     
-//     for (i = 0; i < orderInfo.orders.length; i++) {
-//         const orders = orderInfo.orders[i];
-//         const b = i;
+    for (i = 0; i < orderInfo.orders.length; i++) {
+        const orders = orderInfo.orders[i];
+        const b = i;
         
-//         if (orders.add.length > 3 && orders.flavor.length > 3) {
-//             orderMain.innerHTML += `
-//             <div class="order-box" id="${a}${b}">
-//                 <div class="order-box-des1">
-//                     <div class="order-name">${orders.name}</div>
-//                     <div class="order-number">${orders.num}×</div>
-//                     <div class="order-price">₱${orders.total}</div>
-//                 </div>
+        if (orders.add.length > 3 && orders.flavor.length > 3) {
+            orderMain.innerHTML += `
+            <div class="order-box" id="${a}${b}">
+                <div class="order-box-des1">
+                    <div class="order-name">${orders.name}</div>
+                    <div class="order-number">${orders.num}×</div>
+                    <div class="order-price">₱${orders.total}</div>
+                </div>
 
-//                 <div class="order-box-flavor">Flavor: ${orders.flavor}</div>
+                <div class="order-box-flavor">Flavor: ${orders.flavor}</div>
 
-//                 <div class="order-box-des2">
-//                     <div class="order-addons">${orders.add}</div>
-//                 </div>
-//             </div>
-//             `;
-//         } else if (orders.add === "---" && orders.flavor === "---") {
-//             orderMain.innerHTML += `
-//             <div class="order-box" id="${a}${b}">
-//                 <div class="order-box-des1">
-//                     <div class="order-name">${orders.name}</div>
-//                     <div class="order-number">${orders.num}×</div>
-//                     <div class="order-price">₱${orders.total}</div>
-//                 </div>
+                <div class="order-box-des2">
+                    <div class="order-addons">${orders.add}</div>
+                </div>
+            </div>
+            `;
+        } else if (orders.add === "---" && orders.flavor === "---") {
+            orderMain.innerHTML += `
+            <div class="order-box" id="${a}${b}">
+                <div class="order-box-des1">
+                    <div class="order-name">${orders.name}</div>
+                    <div class="order-number">${orders.num}×</div>
+                    <div class="order-price">₱${orders.total}</div>
+                </div>
 
-//                 <div class="order-box-des2">
-//                     <div class="order-addons"></div>
-//                 </div>
-//             </div>
-//             `;
-//         } else if (orders.add.length > 3 && orders.flavor === "---") {
-//             orderMain.innerHTML += `
-//             <div class="order-box" id="${a}${b}">
-//                 <div class="order-box-des1">
-//                     <div class="order-name">${orders.name}</div>
-//                     <div class="order-number">${orders.num}×</div>
-//                     <div class="order-price">₱${orders.total}</div>
-//                 </div>
+                <div class="order-box-des2">
+                    <div class="order-addons"></div>
+                </div>
+            </div>
+            `;
+        } else if (orders.add.length > 3 && orders.flavor === "---") {
+            orderMain.innerHTML += `
+            <div class="order-box" id="${a}${b}">
+                <div class="order-box-des1">
+                    <div class="order-name">${orders.name}</div>
+                    <div class="order-number">${orders.num}×</div>
+                    <div class="order-price">₱${orders.total}</div>
+                </div>
 
-//                 <div class="order-box-des2">
-//                     <div class="order-addons">${orders.add}</div>
-//                 </div>
-//             </div>
-//             `;
-//         } else if (orders.add === "---" && orders.flavor.length > 3) {
-//             orderMain.innerHTML += `
-//             <div class="order-box" id="${a}${b}">
-//                 <div class="order-box-des1">
-//                     <div class="order-name">${orders.name}</div>
-//                     <div class="order-number">${orders.num}×</div>
-//                     <div class="order-price">₱${orders.total}</div>
-//                 </div>
+                <div class="order-box-des2">
+                    <div class="order-addons">${orders.add}</div>
+                </div>
+            </div>
+            `;
+        } else if (orders.add === "---" && orders.flavor.length > 3) {
+            orderMain.innerHTML += `
+            <div class="order-box" id="${a}${b}">
+                <div class="order-box-des1">
+                    <div class="order-name">${orders.name}</div>
+                    <div class="order-number">${orders.num}×</div>
+                    <div class="order-price">₱${orders.total}</div>
+                </div>
 
-//                 <div class="order-box-flavor">Flavor: ${orders.flavor}</div>
-//             </div>
-//             `;
-//         }
-//     }
-//     orderMain.innerHTML += `
-//         <div class="order-box" style="opacity:0;"></div>
-//     `;
+                <div class="order-box-flavor">Flavor: ${orders.flavor}</div>
+            </div>
+            `;
+        }
+    }
+    orderMain.innerHTML += `
+        <div class="order-box" style="opacity:0;"></div>
+    `;
 
-//     document.getElementById("orderBtn").innerHTML = `
-//         <button onclick="newToPreparing(${a})" style="margin-right:calc(0.8em + 2vw);background:#1e1e1e;">Your Rider</button> 
-//         <button onclick="newToPreparing(${a})">HappyFood Rider</button> 
-//     `
-// }
+    document.getElementById("orderBtn").innerHTML = `
+        <button onclick="newToPreparing(${a})" style="margin-right:calc(0.8em + 2vw);background:#1e1e1e;">Your Rider</button> 
+        <button onclick="newToPreparing(${a})">HappyFood Rider</button> 
+    `
+}
 
 
 
@@ -813,7 +839,7 @@ function newToPreparing(a) {
         } else if (!res.ok) {
             return error();
         }
-    }).catch(err => { return error() });
+    }).catch(() => { return error() });
 }
 
 
@@ -834,10 +860,102 @@ setInterval(() => {
 
 
 
-
 function signOut() {
-    localStorage.clear();
-    setTimeout(() => {
-        window.location = "http://happyfoodpasig.netlify.app";
-    }, 1000);
+    fetch(`${merchantURL}/616a9c1233620b435ac55da3`, {
+        method: "PATCH",
+        body: JSON.stringify({
+            status: "offline",
+        }),
+        headers: {
+            "Content-Type": "application/json; charset=UTF-8"
+        }
+    }).then(() => {
+        window.location = "index.html";
+    }).catch(err => { error() });
 }
+
+
+
+
+
+
+
+
+
+
+
+const loginContainer = document.querySelector(".login-container");
+
+
+async function dataMerchant() {
+    const res = await fetch(merchantURL);
+    const data = await res.json();
+    
+    return data;
+}
+
+dataMerchant().then(res => {
+    const status = res[0].status;
+
+    const container = document.querySelector(".container");
+    
+    if (status === "offline") {
+        container.style.visibility = "hidden";
+        loginContainer.style.visibility = "visible";
+    } else if (status === "online") {
+        container.style.visibility = "visible";
+        loginContainer.style.visibility = "hidden";
+    }
+}).catch(err => { error() });
+
+
+
+
+
+
+
+const merchantLogin = async () => {
+    const res = await fetch(merchantURL);
+    const data = await res.json();
+
+    return data;
+}
+
+merchantLogin().then((res) => {
+    ldfjksauioqrw = res[0].username;
+    setInterval(() => {
+        if (ldfjksauioqrw === "") {
+            window.location.reload();
+        }
+    }, 1000);
+}).catch(err => { error() });
+
+
+let ldfjksauioqrw = "";
+
+
+let val = document.getElementById("qjflfksdfw");
+
+document.getElementById("login").addEventListener("click", e => {  
+    e.preventDefault();
+    if (val.value === ldfjksauioqrw) {
+        val.style.borderColor = "#20e44b";
+        fetch(`${merchantURL}/616a9c1233620b435ac55da3`, {
+            method: "PATCH",
+            body: JSON.stringify({
+                status: "online"
+            }),
+            headers: {
+                "Content-Type": "application/json; charset=UTF-8"
+            }
+        }).then(() => {
+            introLoad();
+        }).catch(err => { error() });
+    } else {
+        val.style.borderColor = "#f63e3e";
+        setTimeout(() => {
+            val.style.borderColor = "#dddddd";
+            val.value = "";
+        }, 700);
+    }
+});
