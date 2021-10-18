@@ -35,8 +35,6 @@ function icons() {
 
 
 
-
-
 let firstPage = true;
 let secondPage = false;
 let thirdPage = false;
@@ -836,6 +834,10 @@ setInterval(() => {
 
 
 
+
 function signOut() {
-    
+    localStorage.clear();
+    setTimeout(() => {
+        window.location = "http://happyfoodpasig.netlify.app";
+    }, 1000);
 }
