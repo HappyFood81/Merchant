@@ -267,17 +267,17 @@ let errorMain = document.getElementById("errorMain");
 
 
 
-// const newOrders = document.getElementById("newOrders");
-// const prepOrders = document.getElementById("preparing");
-// const finsOrders = document.getElementById("finished");
+const newOrders = document.getElementById("newOrders");
+const prepOrders = document.getElementById("preparing");
+const finsOrders = document.getElementById("finished");
 
-// const wrapper1 = document.getElementById("sectionWrapper1");
-// const wrapper2 = document.getElementById("sectionWrapper2");
-// const wrapper3 = document.getElementById("sectionWrapper3");
+const wrapper1 = document.getElementById("sectionWrapper1");
+const wrapper2 = document.getElementById("sectionWrapper2");
+const wrapper3 = document.getElementById("sectionWrapper3");
 
-// let allNewOrder = [];
-// let allPrepOrder = [];
-// let allFinsOrder = [];
+let allNewOrder = [];
+let allPrepOrder = [];
+let allFinsOrder = [];
 
 
 let newOrderLength = 0;
